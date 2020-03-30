@@ -1,5 +1,5 @@
 
-# React Native Credit Card Input
+# React Native Credit Card Vertical Input
 Easy (and good looking) credit-card input for your React Native Project 💳 💳
 
 <p align="center">
