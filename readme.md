@@ -23,9 +23,9 @@ Code:
 # Usage
 
 ```bash
-yarn add react-native-credit-card-vertical-input --dev
+yarn add bryanmalaluan/react-native-credit-card-vertical-input --dev
 or
-npm i --save react-native-credit-card-vertical-input
+npm i --save bryanmalaluan/react-native-credit-card-vertical-input
 ```
 
 then add these lines in your react-native codebase
