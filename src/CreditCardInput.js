@@ -6,7 +6,6 @@ import ReactNative, {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   TextInput,
   ViewPropTypes,
 } from "react-native";
@@ -16,14 +15,8 @@ import CCInput from "./CCInput";
 import { InjectedProps } from "./connectToState";
 
 const s = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
   form: {
     marginTop: 20,
-  },
-  inputContainer: {
-    marginLeft: 20,
   },
   inputLabel: {
     fontWeight: "bold",
@@ -31,15 +24,12 @@ const s = StyleSheet.create({
   input: {
     height: 40,
   },
+  creditCardContianer : {
+    alignItems: "center",
+  }
 });
 
-const CVC_INPUT_WIDTH = 70;
-const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
-const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
-const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
-const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
 const PREVIOUS_FIELD_OFFSET = 40;
-const POSTAL_CODE_INPUT_WIDTH = 120;
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class CreditCardInput extends Component {
@@ -84,8 +74,9 @@ export default class CreditCardInput extends Component {
       postalCode: "34567",
     },
     inputContainerStyle: {
+      marginBottom: 12,
       borderBottomWidth: 1,
-      borderBottomColor: "black",
+      borderBottomColor: "silver",
     },
     validColor: "",
     invalidColor: "red",
@@ -148,8 +139,10 @@ export default class CreditCardInput extends Component {
     } = this.props;
 
     return (
-      <View style={s.container}>
-        <CreditCard focused={focused}
+      <View>
+        <View style={s.creditCardContianer}>
+          <CreditCard 
+          focused={focused}
           brand={type}
           scale={cardScale}
           fontFamily={cardFontFamily}
@@ -160,29 +153,31 @@ export default class CreditCardInput extends Component {
           number={number}
           expiry={expiry}
           cvc={cvc} />
-        <ScrollView ref="Form"
-          horizontal
+        </View>
+
+        <ScrollView 
+          ref="Form"
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
           style={s.form}>
           <CCInput {...this._inputProps("number")}
             keyboardType="numeric"
-            containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
+            containerStyle={inputContainerStyle} />
           <CCInput {...this._inputProps("expiry")}
             keyboardType="numeric"
-            containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
+            containerStyle={inputContainerStyle} />
           { requiresCVC &&
             <CCInput {...this._inputProps("cvc")}
               keyboardType="numeric"
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
+              containerStyle={inputContainerStyle} /> }
           { requiresName &&
             <CCInput {...this._inputProps("name")}
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
+              containerStyle={inputContainerStyle} /> }
           { requiresPostalCode &&
             <CCInput {...this._inputProps("postalCode")}
               keyboardType="numeric"
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
+              containerStyle={inputContainerStyle} /> }
         </ScrollView>
       </View>
     );
